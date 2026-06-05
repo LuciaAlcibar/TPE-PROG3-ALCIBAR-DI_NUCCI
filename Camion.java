@@ -6,10 +6,10 @@ public class Camion {
     private int idCamion;
     private String patente;
     private boolean estaRefrigerado;
-    private int capacidadKg, capacidadActual;
+    private double capacidadKg, capacidadActual;
     private List<Paquete> paquetes;
 
-    public Camion(int idCamion, String patente, boolean estaRefrigerado, int capacidadKg) {
+    public Camion(int idCamion, String patente, boolean estaRefrigerado, double capacidadKg) {
         this.idCamion = idCamion;
         this.patente = patente;
         this.estaRefrigerado = estaRefrigerado;
@@ -25,6 +25,11 @@ public class Camion {
         }
     }
 
+    public void vaciar() {
+        this.paquetes.clear();
+        this.capacidadActual = this.capacidadKg;
+    }
+
     public int getIdCamion() {
         return idCamion;
     }
@@ -37,7 +42,7 @@ public class Camion {
         return estaRefrigerado;
     }
 
-    public int getCapacidadKg() {
+    public double getCapacidadKg() {
         return capacidadKg;
     }
 
@@ -49,7 +54,7 @@ public class Camion {
         this.estaRefrigerado = estaRefrigerado;
     }
 
-    public void setCapacidadKg(int capacidadKg) {
+    public void setCapacidadKg(double capacidadKg) {
         this.capacidadKg = capacidadKg;
     }
 
@@ -72,11 +77,11 @@ public class Camion {
         this.paquetes = paquetes;
     }
 
-    public int getCapacidadActual() {
+    public double getCapacidadActual() {
         return capacidadActual;
     }
 
-    public void setCapacidadActual(int capacidadActual) {
+    public void setCapacidadActual(double capacidadActual) {
         this.capacidadActual = capacidadActual;
     }
 }

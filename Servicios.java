@@ -1,4 +1,6 @@
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Servicios {
@@ -37,18 +39,19 @@ public class Servicios {
      * capacidad de los camiones y minimizar el peso total de los paquetes no asignados.
      */
     public void greedy() {
-
         List<Paquete> paquetes = gestionArchivos.getPaquetes();
         List<Camion> camiones = gestionArchivos.getCamiones();
+
+        for (Camion c : camiones) {
+            c.vaciar();
+        }
 
         double pesoNoAsignado = 0;
         int candidatosConsiderados = 0;
 
-        while (!paquetes.isEmpty()) {
+        Collections.sort(paquetes, Comparator.comparingDouble(Paquete::getPeso_kg).reversed());
 
-            Paquete p = seleccionar(paquetes);
-
-            paquetes.remove(p);
+        for (Paquete p : paquetes) {
 
             candidatosConsiderados++;
 
@@ -70,38 +73,6 @@ public class Servicios {
                 candidatosConsiderados);
     }
 
-    private void mostrarResultado(
-            List<Camion> camiones,
-            double pesoNoAsignado,
-            int candidatosConsiderados) {
-
-        System.out.println("----- GREEDY -----");
-
-        // mostrar camiones y paquetes
-
-        System.out.println(
-                "Peso no asignado: "
-                        + pesoNoAsignado
-                        + " kg");
-
-        System.out.println(
-                "Cantidad de candidatos considerados: "
-                        + candidatosConsiderados);
-    }
-
-    public Paquete seleccionar(List<Paquete> paquetes) {
-        double mejor = -1;
-        Paquete paquete = null;
-
-        for (Paquete p : paquetes) {
-            if (p.getPeso_kg() > mejor) {
-                mejor = p.getPeso_kg();
-                paquete = p;
-            }
-        }
-        return paquete;
-    }
-
     private Camion buscarCamionFactible(Paquete p, List<Camion> camiones) {
         Camion mejor = null;
         double menorSobrante = Double.MAX_VALUE;
@@ -111,7 +82,7 @@ public class Servicios {
                 if (p.contiene_alimento() && !c.estaRefrigerado()) {
                     continue;
                 }
-                double sobrante = c.getCapacidadKg() - p.getPeso_kg();
+                double sobrante = c.getCapacidadActual() - p.getPeso_kg();
                 if (sobrante < menorSobrante) {
                     menorSobrante = sobrante;
                     mejor = c;
@@ -122,4 +93,31 @@ public class Servicios {
 
         return mejor;
     }
+
+    private void mostrarResultado(
+            List<Camion> camiones,
+            double pesoNoAsignado,
+            int candidatosConsiderados) {
+
+        System.out.println("----- GREEDY -----");
+        System.out.println("Solución obtenida:");
+        
+        for (Camion c : camiones) {
+            System.out.println("Camión " + c.getIdCamion() + " (" + c.getPatente() + "):");
+            if (c.getPaquetes().isEmpty()) {
+                System.out.println("  Sin paquetes asignados.");
+            } else {
+                for (Paquete p : c.getPaquetes()) {
+                    System.out.println("  - " + p);
+                }
+            }
+        }
+
+        System.out.println(
+                "Peso no asignado: " + pesoNoAsignado + " kg");
+
+        System.out.println(
+                "Métrica (candidatos considerados): " + candidatosConsiderados);
+    }
+
 }

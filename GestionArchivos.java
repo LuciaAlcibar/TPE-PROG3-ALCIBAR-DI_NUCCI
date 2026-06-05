@@ -9,8 +9,8 @@ import java.util.List;
 
 public class GestionArchivos {
 
-    private List<Camion> camiones; //por ahora no lo usamos, borrar mas adelante
-    private List<Paquete> paquetes; //por ahora no lo usamos, borrar mas adelante
+    private List<Camion> camiones;
+    private List<Paquete> paquetes; 
 
     private HashMap<String, Camion> camionesPorPatente;
     private HashMap<String, Paquete> paquetesPorCodigo;
@@ -24,8 +24,8 @@ public class GestionArchivos {
         this.paquetes = new ArrayList<>(); 
         this.paquetesPorCodigo = new HashMap<>();
 
-        this.camiones = new ArrayList<>(); //por ahora no lo usamos
-        this.camionesPorPatente = new HashMap<>(); //por ahora no lo usamos, borrar mas adelante
+        this.camiones = new ArrayList<>();
+        this.camionesPorPatente = new HashMap<>(); 
 
         this.arbolUrgencias = new ArbolUrgencias();
 
@@ -55,7 +55,7 @@ public class GestionArchivos {
                 int id = Integer.parseInt(datos[0]);
                 String patente = datos[1];
                 boolean refrigerado = datos[2].equals("1");
-                int capacidadKg = Integer.parseInt(datos[3]);
+                double capacidadKg = Double.parseDouble(datos[3]);
 
                 Camion camion = new Camion(
                         id,
@@ -78,7 +78,7 @@ public class GestionArchivos {
 
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
 
-            br.readLine(); // cantidad de paquetes
+            br.readLine(); 
 
             String linea;
 
@@ -117,22 +117,20 @@ public class GestionArchivos {
         }
     }
 
-    // hacer copyyy
     public List<Camion> getCamiones() {
-        return camiones;
+        return new ArrayList<>(camiones);
     }
 
-    // hacer copia
     public List<Paquete> getPaquetes() {
-        return paquetes;
+        return new ArrayList<>(paquetes);
     }
 
     public HashMap<String, Paquete> getPaquetesPorCodigo() {
-        return paquetesPorCodigo;
+        return new HashMap<>(paquetesPorCodigo);
     }
 
     public HashMap<String, Camion> getCamionesPorPatente() {
-        return camionesPorPatente;
+        return new HashMap<>(camionesPorPatente);
     }
 
     public ArbolUrgencias getArbolUrgencias() {
@@ -140,10 +138,10 @@ public class GestionArchivos {
     }
 
     public List<Paquete> getPaquetesConAlimento() {
-        return paquetesConAlimento;
+        return new LinkedList<>(paquetesConAlimento);
     }
 
     public List<Paquete> getPaquetesSinAlimento() {
-        return paquetesSinAlimento;
+        return new LinkedList<>(paquetesSinAlimento);
     }
 }
