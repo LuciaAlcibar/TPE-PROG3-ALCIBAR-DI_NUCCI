@@ -1,14 +1,28 @@
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Camion {
     private int idCamion;
     private String patente;
     private boolean estaRefrigerado;
-    private int capacidadKg;
+    private int capacidadKg, capacidadActual;
+    private List<Paquete> paquetes;
 
     public Camion(int idCamion, String patente, boolean estaRefrigerado, int capacidadKg) {
         this.idCamion = idCamion;
         this.patente = patente;
         this.estaRefrigerado = estaRefrigerado;
         this.capacidadKg = capacidadKg;
+        this.capacidadActual = capacidadKg;
+        this.paquetes = new ArrayList<>();
+    }
+
+    public void agregarPaquete(Paquete p) {
+        if (!paquetes.contains(p)) {
+            paquetes.add(p);
+            capacidadActual -= p.getPeso_kg();
+        }
     }
 
     public int getIdCamion() {
@@ -47,5 +61,22 @@ public class Camion {
                 ", estaRefrigerado=" + estaRefrigerado +
                 ", capacidadKg=" + capacidadKg +
                 '}';
+    }
+
+    // devolver copia
+    public List<Paquete> getPaquetes() {
+        return paquetes;
+    }
+
+    public void setPaquetes(List<Paquete> paquetes) {
+        this.paquetes = paquetes;
+    }
+
+    public int getCapacidadActual() {
+        return capacidadActual;
+    }
+
+    public void setCapacidadActual(int capacidadActual) {
+        this.capacidadActual = capacidadActual;
     }
 }

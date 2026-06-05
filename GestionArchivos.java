@@ -117,10 +117,12 @@ public class GestionArchivos {
         }
     }
 
+    // hacer copyyy
     public List<Camion> getCamiones() {
         return camiones;
     }
 
+    // hacer copia
     public List<Paquete> getPaquetes() {
         return paquetes;
     }
