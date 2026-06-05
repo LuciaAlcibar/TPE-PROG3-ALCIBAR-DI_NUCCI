@@ -22,7 +22,7 @@ public class Servicios {
         return gestionArchivos.getPaquetesSinAlimento();
     }
 
-    public List<Paquete> servicio3(int urgenciaMin, int urgenciaMax) { //balancear arbol
+    public List<Paquete> servicio3(int urgenciaMin, int urgenciaMax) { 
         return gestionArchivos.getArbolUrgencias().getPaquetesEnRango(urgenciaMin, urgenciaMax);
     }
 }
