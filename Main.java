@@ -3,8 +3,8 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        String pathCamiones = "camiones.csv";
-        String pathPaquetes = "paquetes.csv";
+        String pathCamiones = "csv/camiones.csv";
+        String pathPaquetes = "csv/paquetes.csv";
 
         System.out.println("Inicializando servicios y cargando archivos...");
         Servicios servicios = new Servicios(pathCamiones, pathPaquetes);
