@@ -36,10 +36,15 @@ public class Servicios {
 
     //GREEDY
     /*
-     Estrategia Greedy: buscar el paquete de mayor peso. 
-     En cada iteración se selecciona el paquete de mayor peso aún no asignado, ya que dejar sin asignar paquetes pesados incrementa más el peso total no transportado. Luego, se busca un camión factible que respete las restricciones de capacidad y refrigeración, eligiendo aquel que deje el menor espacio libre disponible. De esta manera se intenta aprovechar mejor la capacidad de los camiones y minimizar el peso total de los paquetes no asignados.
-     Complejidad: O(P log P + P * C)
-     */
+    * Estrategia Greedy: buscar el paquete de mayor peso. 
+    * En cada iteración se selecciona el paquete de mayor peso aún no asignado, ya que dejar
+    * sin asignar paquetes pesados incrementa más el peso total no transportado.
+    * Luego, se busca un camión factible que respete las restricciones de capacidad y refrigeración,
+    * eligiendo aquel que deje el menor espacio libre disponible.
+    * De esta manera se intenta aprovechar mejor la capacidad de los camiones y minimizar el peso total
+    * de los paquetes no asignados.
+    * Complejidad: O(P log P + P * C)
+    */
     public void greedy() {
         List<Paquete> paquetes = gestionArchivos.getPaquetes();
         List<Camion> camiones = gestionArchivos.getCamiones();
@@ -99,8 +104,13 @@ public class Servicios {
     }
     //BACKTRACKING
     /*
-    Estrategia Backtracking: se exploran todas las posibles asignaciones de paquetes a camiones, considerando para cada paquete la opción de ubicarlo en cada camión factible o dejarlo sin asignar. Un camión es factible si tiene capacidad suficiente y, en caso de que el paquete contenga alimentos, si está refrigerado. Durante la exploración se guarda la mejor solución encontrada, es decir, aquella que minimiza el peso total no asignado. Además, se aplican podas para descartar ramas que ya no pueden mejorar la mejor solución actual, reduciendo la cantidad de estados generados. 
-    Complejidad: O(P * (C + 1)^P).
+    * Estrategia Backtracking: se exploran todas las posibles asignaciones de paquetes a camiones,
+    * considerando para cada paquete la opción de ubicarlo en cada camión factible o dejarlo sin asignar.
+    * Un camión es factible si tiene capacidad suficiente y, en caso de que el paquete contenga alimentos,
+    * si está refrigerado. Durante la exploración se guarda la mejor solución encontrada, es decir,
+    * aquella que minimiza el peso total no asignado. Además, se aplican podas para descartar ramas que
+    * ya no pueden mejorar la mejor solución actual, reduciendo la cantidad de estados generados. 
+    * Complejidad: O(P * (C + 1)^P).
     */
     public void asignarPaquetesBacktracking() {
         List<Paquete> paquetes = gestionArchivos.getPaquetes();
