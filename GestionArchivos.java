@@ -129,6 +129,10 @@ public class GestionArchivos {
         return new HashMap<>(paquetesPorCodigo);
     }
 
+    public Paquete getPaquetePorCodigo(String codigo) {
+        return paquetesPorCodigo.get(codigo);
+    }
+
     public HashMap<String, Camion> getCamionesPorPatente() {
         return new HashMap<>(camionesPorPatente);
     }

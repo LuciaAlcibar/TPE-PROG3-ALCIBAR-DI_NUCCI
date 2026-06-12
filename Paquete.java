@@ -1,4 +1,6 @@
-public class Paquete {
+
+public class Paquete implements Comparable<Paquete> {
+
     private int id_paquete;
     private String codigo_paquete;
     private double peso_kg;
@@ -46,21 +48,26 @@ public class Paquete {
     }
 
     public void setNivel_urgencia(int nivel_urgencia) {
-        if(nivel_urgencia >= 1 && nivel_urgencia <= 100){
-          this.nivel_urgencia = nivel_urgencia;
+        if (nivel_urgencia >= 1 && nivel_urgencia <= 100) {
+            this.nivel_urgencia = nivel_urgencia;
         } else {
             throw new IllegalArgumentException("El nivel de urgencia debe ser un valor entre 1 y 100.");
         }
     }
 
     @Override
+    public int compareTo(Paquete otro) {
+        return Double.compare(this.peso_kg, otro.peso_kg);
+    }
+
+    @Override
     public String toString() {
-        return "Paquete{" +
-                "id_paquete=" + id_paquete +
-                ", codigo_paquete='" + codigo_paquete + '\'' +
-                ", peso_kg=" + peso_kg +
-                ", contiene_alimento=" + contiene_alimento +
-                ", nivel_urgencia=" + nivel_urgencia +
-                '}';
+        return "Paquete{"
+                + "id_paquete=" + id_paquete
+                + ", codigo_paquete='" + codigo_paquete + '\''
+                + ", peso_kg=" + peso_kg
+                + ", contiene_alimento=" + contiene_alimento
+                + ", nivel_urgencia=" + nivel_urgencia
+                + '}';
     }
 }

@@ -19,10 +19,8 @@ public class Camion {
     }
 
     public void agregarPaquete(Paquete p) {
-        if (!paquetes.contains(p)) {
-            paquetes.add(p);
-            capacidadActual -= p.getPeso_kg();
-        }
+        paquetes.add(p);
+        capacidadActual -= p.getPeso_kg();
     }
 
     public void vaciar() {
@@ -56,6 +54,7 @@ public class Camion {
 
     public void setCapacidadKg(double capacidadKg) {
         this.capacidadKg = capacidadKg;
+        this.setCapacidadActual(capacidadKg);
     }
 
     @Override
@@ -68,9 +67,8 @@ public class Camion {
                 '}';
     }
 
-    // devolver copia
     public List<Paquete> getPaquetes() {
-        return paquetes;
+        return  new ArrayList<>(paquetes);
     }
 
     public void setPaquetes(List<Paquete> paquetes) {
@@ -83,5 +81,10 @@ public class Camion {
 
     public void setCapacidadActual(double capacidadActual) {
         this.capacidadActual = capacidadActual;
+    }
+
+    void eliminarPaquete(Paquete p) {
+        paquetes.remove(p);
+        capacidadActual += p.getPeso_kg();
     }
 }

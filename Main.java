@@ -37,5 +37,13 @@ public class Main {
         for (Paquete p : urgentes) {
             System.out.println(p);
         }
+
+        // Prueba de Greedy
+        System.out.println("\n--- Prueba de Asignación con Algoritmo Greedy ---");
+        servicios.greedy();
+
+        // Prueba de Backtracking
+        System.out.println("\n--- Prueba de Asignación con Algoritmo Backtracking ---");
+        servicios.asignarPaquetesBacktracking();
     }
 }
