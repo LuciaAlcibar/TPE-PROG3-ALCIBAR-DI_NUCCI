@@ -57,12 +57,7 @@ public class GestionArchivos {
                 boolean refrigerado = datos[2].equals("1");
                 double capacidadKg = Double.parseDouble(datos[3]);
 
-                Camion camion = new Camion(
-                        id,
-                        patente,
-                        refrigerado,
-                        capacidadKg
-                );
+                Camion camion = new Camion(id, patente, refrigerado, capacidadKg);
 
                 camiones.add(camion);
                 camionesPorPatente.put(patente, camion);
@@ -93,13 +88,7 @@ public class GestionArchivos {
                 boolean contieneAlimento = datos[3].equals("1");
                 int urgencia = Integer.parseInt(datos[4]);
 
-                Paquete paquete = new Paquete(
-                        id,
-                        codigo,
-                        contieneAlimento,
-                        urgencia,
-                        peso
-                );
+                Paquete paquete = new Paquete(id, codigo, contieneAlimento, urgencia, peso);
 
                 paquetes.add(paquete);
                 paquetesPorCodigo.put(codigo, paquete);

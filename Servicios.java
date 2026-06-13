@@ -74,12 +74,7 @@ public class Servicios {
             }
         }
 
-        mostrarResultado(
-                "GREEDY",
-                camiones,
-                pesoNoAsignado,
-                candidatosConsiderados,
-                "Candidatos considerados");
+        mostrarResultado("GREEDY", camiones, pesoNoAsignado, candidatosConsiderados, "Candidatos considerados");
     }
 
     private Camion buscarCamionFactible(Paquete p, List<Camion> camiones) {
@@ -150,9 +145,7 @@ public class Servicios {
 
         double capacidadLibre = capacidadDisponibleTotal(camiones);
 
-        double minimoPesoNoAsignadoPosible
-                = pesoNoAsignadoActual
-                + Math.max(0, pesoRestante - capacidadLibre);
+        double minimoPesoNoAsignadoPosible = pesoNoAsignadoActual + Math.max(0, pesoRestante - capacidadLibre);
 
         if (minimoPesoNoAsignadoPosible >= mejorPesoNoAsignado[0]) {
             return;
@@ -175,9 +168,9 @@ public class Servicios {
             }
             if (c.getCapacidadActual() >= p.getPeso_kg()) {
                 asignacionActual[pos] = i;
-                c.agregarPaquete(p); // Hacemos (Asignar)
+                c.agregarPaquete(p); 
                 backtracking(paquetes, camiones, pos + 1, pesoNoAsignadoActual, mejorPesoNoAsignado, asignacionActual, mejorAsignacion, estadosConsiderados);
-                c.eliminarPaquete(p); // Deshacemos (Backtrack)
+                c.eliminarPaquete(p); 
                 asignacionActual[pos] = -1;
             }
         }
@@ -231,11 +224,9 @@ public class Servicios {
             }
         }
 
-        System.out.println(
-                "Peso no asignado: " + pesoNoAsignado + " kg");
+        System.out.println("Peso no asignado: " + pesoNoAsignado + " kg");
 
-        System.out.println(
-                "Métrica ( " + nombreMetrica + " ): " + metrica);
+        System.out.println("Métrica ( " + nombreMetrica + " ): " + metrica);
     }
 
 }
