@@ -78,14 +78,7 @@ public class Servicios {
             }
         }
 
-        mostrarResultado("GREEDY", camiones, pesoNoAsignado, candidatosConsiderados, "Candidatos considerados");
-        mostrarResultado(
-                "GREEDY",
-                camiones,
-                pesoNoAsignado,
-                candidatosConsiderados,
-                "Candidatos considerados",
-                paquetesNoAsignados);
+        mostrarResultado("GREEDY", camiones, pesoNoAsignado, candidatosConsiderados, "Candidatos considerados", paquetesNoAsignados);
     }
 
     private Camion buscarCamionFactible(Paquete p, List<Camion> camiones) {
@@ -139,7 +132,7 @@ public class Servicios {
         backtracking(paquetes, camiones, 0, 0.0, mejorPesoNoAsignado, asignacionActual, mejorAsignacion, estadosConsiderados);
         reconstruirMejorAsignacion(paquetes, camiones, mejorAsignacion);
 
-        mostrarResultado("BACKTRACKING", camiones, mejorPesoNoAsignado[0], estadosConsiderados[0], "Estados generados");
+        mostrarResultado("BACKTRACKING", camiones, mejorPesoNoAsignado[0], estadosConsiderados[0], "Estados generados",null);
     }
 
     private void backtracking(List<Paquete> paquetes, List<Camion> camiones, int pos, double pesoNoAsignadoActual, double[] mejorPesoNoAsignado, int[] asignacionActual, int[] mejorAsignacion, int[] estadosConsiderados) {
@@ -219,16 +212,6 @@ public class Servicios {
             List<Camion> camiones,
             double pesoNoAsignado,
             int metrica,
-            String nombreMetrica) {
-
-        mostrarResultado(algoritmo, camiones, pesoNoAsignado, metrica, nombreMetrica, null);
-    }
-
-    private void mostrarResultado(
-            String algoritmo,
-            List<Camion> camiones,
-            double pesoNoAsignado,
-            int metrica,
             String nombreMetrica,
             List<Paquete> paquetesNoAsignados) {
 
@@ -236,21 +219,20 @@ public class Servicios {
         System.out.println("Solución obtenida:");
 
         for (Camion c : camiones) {
-            System.out.println(
-                    "Camión " + c.getIdCamion()
-                    + " (" + c.getPatente() + ")"
-                    + " - Capacidad total: " + c.getCapacidadKg() + " kg"
-                    + " - Capacidad restante: " + c.getCapacidadActual() + " kg:");
+            System.out.println("Camión " + c.getIdCamion() + " (" + c.getPatente() + ")");
+            System.out.println("  Capacidad total: " + String.format("%.2f", c.getCapacidadKg()) + " kg");
+            System.out.println("  Capacidad restante: " + String.format("%.2f", c.getCapacidadActual()) + " kg");
+            System.out.println("  Paquetes asignados:");
             if (c.getPaquetes().isEmpty()) {
-                System.out.println("  Sin paquetes asignados.");
+                System.out.println("    Ninguno.");
             } else {
                 for (Paquete p : c.getPaquetes()) {
-                    System.out.println("  - " + p);
+                    System.out.println("    - " + p);
                 }
             }
         }
 
-        System.out.println("Peso no asignado: " + pesoNoAsignado + " kg");
+        System.out.println("Peso total no asignado: " + String.format("%.2f", pesoNoAsignado) + " kg");
 
         System.out.println("Métrica ( " + nombreMetrica + " ): " + metrica);
         if (paquetesNoAsignados != null) {
@@ -263,9 +245,6 @@ public class Servicios {
                 }
             }
         }
-
-        System.out.println(
-                "Métrica ( " + nombreMetrica + " ): " + metrica);
     }
 
 }
