@@ -7,7 +7,7 @@ public class ArbolUrgencias {
 
     public ArbolUrgencias() {
         this.root = null;
-    }
+    } 
 
     public void add(Paquete paquete) {
         root = add(root, paquete);

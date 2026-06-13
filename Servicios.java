@@ -1,7 +1,8 @@
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import static java.util.Collections.reverseOrder;
+import static java.util.Collections.*;
 import java.util.Comparator;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class Servicios {
         return gestionArchivos.getPaquetePorCodigo(codigo_paquete);
     }
 
-    //SERVICIO 2. Complejidad : O(P)
+    //SERVICIO 2. Complejidad: O(K), donde K es la cantidad de paquetes de la lista retornada.
     public List<Paquete> servicio2(boolean contieneAlimentos) {
 
         if (contieneAlimentos) {
@@ -29,7 +30,8 @@ public class Servicios {
         return gestionArchivos.getPaquetesSinAlimento();
     }
 
-    //SERVICIO 3. Complejidad : O(P)
+    //SERVICIO 3. Complejidad : O(h + k), h es la altura del arbol y k la cantidad de paquetes retornados.
+    //En el peor caso: O(P)
     public List<Paquete> servicio3(int urgenciaMin, int urgenciaMax) {
         return gestionArchivos.getArbolUrgencias().getPaquetesEnRango(urgenciaMin, urgenciaMax);
     }
@@ -55,6 +57,7 @@ public class Servicios {
 
         double pesoNoAsignado = 0;
         int candidatosConsiderados = 0;
+        List<Paquete> paquetesNoAsignados = new ArrayList<>();
 
         Collections.sort(paquetes, Comparator.comparingDouble(Paquete::getPeso_kg).reversed());
 
@@ -71,10 +74,18 @@ public class Servicios {
             } else {
 
                 pesoNoAsignado += p.getPeso_kg();
+                paquetesNoAsignados.add(p);
             }
         }
 
         mostrarResultado("GREEDY", camiones, pesoNoAsignado, candidatosConsiderados, "Candidatos considerados");
+        mostrarResultado(
+                "GREEDY",
+                camiones,
+                pesoNoAsignado,
+                candidatosConsiderados,
+                "Candidatos considerados",
+                paquetesNoAsignados);
     }
 
     private Camion buscarCamionFactible(Paquete p, List<Camion> camiones) {
@@ -210,11 +221,26 @@ public class Servicios {
             int metrica,
             String nombreMetrica) {
 
+        mostrarResultado(algoritmo, camiones, pesoNoAsignado, metrica, nombreMetrica, null);
+    }
+
+    private void mostrarResultado(
+            String algoritmo,
+            List<Camion> camiones,
+            double pesoNoAsignado,
+            int metrica,
+            String nombreMetrica,
+            List<Paquete> paquetesNoAsignados) {
+
         System.out.println("----- " + algoritmo + " -----");
         System.out.println("Solución obtenida:");
 
         for (Camion c : camiones) {
-            System.out.println("Camión " + c.getIdCamion() + " (" + c.getPatente() + "):");
+            System.out.println(
+                    "Camión " + c.getIdCamion()
+                    + " (" + c.getPatente() + ")"
+                    + " - Capacidad total: " + c.getCapacidadKg() + " kg"
+                    + " - Capacidad restante: " + c.getCapacidadActual() + " kg:");
             if (c.getPaquetes().isEmpty()) {
                 System.out.println("  Sin paquetes asignados.");
             } else {
@@ -227,6 +253,19 @@ public class Servicios {
         System.out.println("Peso no asignado: " + pesoNoAsignado + " kg");
 
         System.out.println("Métrica ( " + nombreMetrica + " ): " + metrica);
+        if (paquetesNoAsignados != null) {
+            System.out.println("Paquetes no asignados:");
+            if (paquetesNoAsignados.isEmpty()) {
+                System.out.println("  Ninguno.");
+            } else {
+                for (Paquete p : paquetesNoAsignados) {
+                    System.out.println("  - " + p);
+                }
+            }
+        }
+
+        System.out.println(
+                "Métrica ( " + nombreMetrica + " ): " + metrica);
     }
 
 }

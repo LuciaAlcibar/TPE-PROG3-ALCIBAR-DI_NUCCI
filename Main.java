@@ -45,5 +45,8 @@ public class Main {
         // Prueba de Backtracking
         System.out.println("\n--- Prueba de Asignación con Algoritmo Backtracking ---");
         servicios.asignarPaquetesBacktracking();
+
+
+    
     }
 }
